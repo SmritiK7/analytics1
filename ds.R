@@ -55,5 +55,69 @@ set.seed(53)
 
 
 # Matrix----
+(m1=matrix(1:24, nrow=4))
+(m2=matrix(1:24, nrow=4, byrow=T))
+(m3=matrix(1:24, ncol=4, byrow=T))
+(x=runif(60,60,100))
+
+plot(density(x))
+x=trunc(runif(60,60,100))
+plot(density(x))
+
+(m4=matrix(x,ncol=6))
+
+colSums(m4)
+rowSums(m4)
+colMeans(m4)
+m4[m4>67]
+m4[m4>67 & m4<86]
+m4[10,]
+m4[8:10,]
+m4[8:10,1:3]
+m4[8:10, c(1,3,5)]#use c when not in sequence otherwise :
+m4[,c(1,5,6)]
+
+rowSums(m4[8:10, c(1,3,5)])
+
 
 # Array----
+
+#data.frame
+#rollno, name, gender, course, marks1, marks2
+(rollno = 1:60)
+(name=paste('student',1:60,sep='-'))
+(gender = sample(c('Male','Female'), size=60, replace=T, prob=c(.4,.6)))
+name[15:20]
+name[c(15,20,40)]
+name[-1]                          #removing 1st name
+name[-c(1:10)]                    #removing first name
+rev(name)                         #reversing all
+name[60:1]
+name[-c(1:10, 40:45)]
+
+(course = sample(c('BBA','MBA','BCom'), size = 60, replace=T, prob=c(.6,.2,.2)))
+
+(marks1 = ceiling(rnorm(60, mean=65, sd=7)))
+(marks2 = ceiling(rnorm(60, mean=60, sd= 11)))
+(grades = sample(c('A','B','C'), size=60,replace=T))
+
+#data frame
+students = data.frame(rollno,name,gender,course,marks1,marks2,grades,stringsAsFactors = F)
+class(students)
+summary(students)
+students[, c('name')]
+students[students$gender=='Male',c('rollno','gender','marks1')]
+students[students$gender=='Male' & students$grade == 'C', c('rollno','gender','marks1')]
+students[students$marks1>55 | students$marks1<75, c('name','marks1')]
+students[students$marks1>75 | students$marks2>75, c('name','marks1', 'marks2')]
+students[students$marks1>50 & students$marks2>50, c('name','marks1', 'marks2')]
+
+students$gender
+t1=table(students$gender)
+barplot(table(students$course))
+text(1:3, table(students$course),table(students$course))
+
+barplot(table(students$course),ylim=c(0,50),col=1:3)
+text(1:3, table(students$course)+5,table(students$course))
+?text
+

@@ -7,13 +7,3 @@ x=1:100
 y = seq(1,100, by=2)
 data()
 install.packages('MASS')
-# Data Structures
-
-
-# Vectors----
-
-
-# Matrix----
-
-
-# Array----
