@@ -21,3 +21,7 @@ names(denco)
 d4fa = aggregate(margin ~ partnum, data=denco, FUN=sum)
 aggregate(margin ~ partnum, data = denco, FUN = sum)
 head(d4fa[order(df4a$margin)])
+
+#delete all before above commment
+
+
