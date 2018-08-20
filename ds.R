@@ -121,3 +121,77 @@ barplot(table(students$course),ylim=c(0,50),col=1:3)
 text(1:3, table(students$course)+5,table(students$course))
 ?text
 
+str(students)
+nrow(students)
+names(students)
+dim(students)
+head(students)
+tail(students)
+head(students, n=10)
+
+#average marks scored by each gender
+aggregate(students$marks1, by=list(students$gender), FUN=mean)
+
+aggregate(students$marks2, by=list(students$course), FUN=mean)
+
+aggregate(students$marks2, by=list(students$course, students$gender), FUN=mean)
+
+aggregate(students$marks2, by=list(students$course, students$gender), FUN=max)
+
+
+#dplyr
+library(dplyr)
+
+#piping
+students %>% group_by(course,gender) %>% summarise(minmarks1=min(marks1),mean(marks1),max(marks1),min(marks2),mean(marks2),max(marks2)) %>% arrange(minmarks1)
+
+students %>% group_by(course,gender) %>% summarise(minmarks1=min(marks1),mean(marks1),max(marks1),min(marks2),mean(marks2),max(marks2)) %>% arrange(desc(minmarks1))
+
+students %>% arrange(desc(marks1)) %>% filter(gender=='Male') %>% head(n=5)
+
+sample_frac(students, 0.1,replace= F)  # OR students %>% sample_frac(0.1)
+students %>% sample_frac(0.1)
+sample_n(students, 5, replace = F) # OR students %>% sample_n(5)
+students %>% sample_n(5)
+
+students %>% sample_frac(0.1) %>% arrange(course) %>% select(name,gender)
+students %>% arrange(course,grades,marks1) %>% select(name,course,grades,marks1)
+
+students %>% arrange(course,grades,marks1) %>% select(name,course,grades,marks1) %>% filter(course=='BBA')
+
+students %>% select(name,course,grades,marks1) %>% group_by(course) %>% arrange(course,grades,marks1) %>% top_n(5)
+
+#factor
+names(students)
+students$gender = factor (students$gender)
+summary(students$gender)
+summary(students$gender)
+students$course = factor (students$course,ordered=T)
+summary(students$course)
+students$course = factor(students$course, ordered = T, levels = c('BCom', 'MBA', 'BBA'))
+summary(students$course)
+
+students$grades
+
+#C,A,B
+
+students$grades = factor(students$grades, ordered = T, levels = c('C','A','B'))
+students$grades
+
+table(students$grades)
+barplot (table(students$grades))
+
+#save in data folder
+students
+write.csv(students,'./data/iimtrichy.csv')
+
+#import from somewhere
+students2 = read.csv('./data/iimtrichy.csv')
+head(students2)
+
+#browse and import
+students3 = read.csv(file.choose())
+
+#eliminate a column
+students2 = students2[,-1]
+head(students2)
